@@ -1,6 +1,3 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white px-6 py-16 font-sans">
