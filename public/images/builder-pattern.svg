@@ -1,0 +1,37 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Grid background -->
+  <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#666666" stroke-width="0.5" opacity="0.3"/>
+  </pattern>
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <rect width="50" height="50" fill="url(#smallGrid)"/>
+    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#666666" stroke-width="1" opacity="0.5"/>
+  </pattern>
+  
+  <rect width="200" height="200" fill="url(#grid)"/>
+  
+  <!-- Blueprint elements -->
+  <g stroke="#4477AA" fill="none" stroke-width="1">
+    <circle cx="50" cy="50" r="25" opacity="0.6"/>
+    <line x1="25" y1="50" x2="75" y2="50" opacity="0.6"/>
+    <line x1="50" y1="25" x2="50" y2="75" opacity="0.6"/>
+    
+    <rect x="125" y="25" width="50" height="50" opacity="0.6"/>
+    <line x1="125" y1="25" x2="175" y2="75" opacity="0.6"/>
+    <line x1="125" y1="75" x2="175" y2="25" opacity="0.6"/>
+    
+    <polyline points="25,125 50,150 75,125 100,150 125,125 150,150 175,125" opacity="0.6"/>
+    
+    <path d="M25,175 A25,25 0 1,0 75,175 Z" opacity="0.6"/>
+    <rect x="125" y="150" width="50" height="25" rx="5" opacity="0.6"/>
+  </g>
+  
+  <!-- Measurement annotations -->
+  <g fill="#3399DD" font-family="monospace" font-size="8" opacity="0.5">
+    <text x="40" y="20">25.0</text>
+    <text x="140" y="20">50x50</text>
+    <text x="90" y="130">ELEVATION</text>
+    <text x="25" y="195">R25</text>
+    <text x="135" y="195">SECTION A</text>
+  </g>
+</svg> 

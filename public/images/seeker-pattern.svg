@@ -1,0 +1,58 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background grid -->
+  <pattern id="timerGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#7700BB" stroke-width="0.5" opacity="0.2"/>
+  </pattern>
+  <rect width="200" height="200" fill="url(#timerGrid)"/>
+  
+  <!-- Fitness elements -->
+  <g stroke="#9933CC" fill="none" stroke-width="1.5" opacity="0.6">
+    <!-- Stopwatch -->
+    <circle cx="50" cy="50" r="25"/>
+    <line x1="50" y1="50" x2="65" y2="35" stroke-linecap="round"/>
+    <line x1="50" y1="50" x2="40" y2="65" stroke-linecap="round"/>
+    <line x1="50" y1="20" x2="50" y2="25"/>
+    <line x1="50" y1="75" x2="50" y2="80"/>
+    <line x1="20" y1="50" x2="25" y2="50"/>
+    <line x1="75" y1="50" x2="80" y2="50"/>
+    
+    <!-- Heartbeat -->
+    <polyline points="110,50 120,50 125,30 135,70 145,50 160,50 170,50" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Barbell -->
+    <line x1="30" y1="120" x2="170" y2="120" stroke-linecap="round"/>
+    <rect x="40" y="110" width="15" height="20" rx="2"/>
+    <rect x="145" y="110" width="15" height="20" rx="2"/>
+    <circle cx="30" cy="120" r="10"/>
+    <circle cx="170" cy="120" r="10"/>
+    
+    <!-- Mountain/challenge -->
+    <polyline points="30,180 60,150 80,165 120,135 140,155 170,130" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Timer markers -->
+  <g fill="#AA44FF" opacity="0.5">
+    <circle cx="135" cy="40" r="2"/>
+    <circle cx="145" cy="40" r="2"/>
+    <circle cx="155" cy="40" r="2"/>
+    
+    <rect x="125" y="85" width="10" height="2" rx="1"/>
+    <rect x="140" y="85" width="15" height="2" rx="1"/>
+    <rect x="160" y="85" width="5" height="2" rx="1"/>
+    
+    <circle cx="50" cy="150" r="3"/>
+    <circle cx="70" cy="150" r="3"/>
+    <circle cx="90" cy="150" r="3"/>
+    <circle cx="110" cy="150" r="3"/>
+    <circle cx="130" cy="150" r="3"/>
+    <circle cx="150" cy="150" r="3"/>
+  </g>
+  
+  <!-- Text elements -->
+  <g fill="#AA44FF" font-family="sans-serif" font-size="6" font-weight="bold" opacity="0.5">
+    <text x="30" y="95">FOCUS</text>
+    <text x="110" y="95">DISCIPLINE</text>
+    <text x="35" y="185">PROGRESS</text>
+    <text x="130" y="185">STRENGTH</text>
+  </g>
+</svg> 

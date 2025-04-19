@@ -1,0 +1,80 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" seed="1" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="1 0" />
+        <feFuncG type="table" tableValues="1 0" />
+        <feFuncB type="table" tableValues="1 0" />
+      </feComponentTransfer>
+      <feComposite operator="in" in2="SourceGraphic" />
+    </filter>
+    
+    <radialGradient id="flame-center" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#ff0000" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#ff3300" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#ff6600" stop-opacity="0" />
+    </radialGradient>
+    
+    <linearGradient id="flame-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0000" stop-opacity="0.7" />
+      <stop offset="40%" stop-color="#ff3300" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#ff6600" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="20" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="displace" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="3" result="turbulence" seed="3" />
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="50" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+  
+  <!-- Subtle background pattern -->
+  <rect width="100%" height="100%" fill="#000" opacity="0.1" />
+  
+  <!-- Center glow -->
+  <circle cx="600" cy="600" r="400" fill="url(#flame-center)" opacity="0.2" />
+  
+  <!-- Dynamic flame shapes -->
+  <g filter="url(#noise)" opacity="0.4">
+    <!-- Main flame body -->
+    <path d="M600,1200 Q750,900 670,700 Q600,500 700,300 Q800,100 900,300 Q1000,500 930,700 Q850,900 1000,1200 Z" 
+          fill="url(#flame-gradient)" 
+          filter="url(#displace)" />
+    
+    <path d="M400,1200 Q550,900 470,700 Q400,500 500,300 Q600,100 700,300 Q800,500 730,700 Q650,900 800,1200 Z" 
+          fill="url(#flame-gradient)" 
+          filter="url(#displace)" />
+    
+    <path d="M200,1200 Q350,900 270,700 Q200,500 300,300 Q400,100 500,300 Q600,500 530,700 Q450,900 600,1200 Z" 
+          fill="url(#flame-gradient)" 
+          filter="url(#displace)" />
+  </g>
+  
+  <!-- Illuminated particles -->
+  <g filter="url(#glow)">
+    <circle cx="400" cy="400" r="5" fill="#ff3300" opacity="0.3" />
+    <circle cx="700" cy="350" r="3" fill="#ff4400" opacity="0.2" />
+    <circle cx="300" cy="600" r="4" fill="#ff2200" opacity="0.2" />
+    <circle cx="800" cy="500" r="6" fill="#ff3300" opacity="0.3" />
+    <circle cx="600" cy="300" r="4" fill="#ff4400" opacity="0.2" />
+    <circle cx="500" cy="700" r="5" fill="#ff2200" opacity="0.2" />
+    <circle cx="900" cy="600" r="3" fill="#ff3300" opacity="0.3" />
+    <circle cx="200" cy="500" r="4" fill="#ff4400" opacity="0.2" />
+    <circle cx="650" cy="450" r="5" fill="#ff2200" opacity="0.2" />
+    <circle cx="750" cy="650" r="4" fill="#ff3300" opacity="0.3" />
+  </g>
+  
+  <!-- Subtle horizontal flow lines -->
+  <g stroke="#ff2200" stroke-width="1" opacity="0.1" filter="url(#displace)">
+    <path d="M0,300 C200,320 400,280 600,310 C800,340 1000,290 1200,300" fill="none" />
+    <path d="M0,500 C200,520 400,480 600,510 C800,540 1000,490 1200,500" fill="none" />
+    <path d="M0,700 C200,720 400,680 600,710 C800,740 1000,690 1200,700" fill="none" />
+    <path d="M0,900 C200,920 400,880 600,910 C800,940 1000,890 1200,900" fill="none" />
+  </g>
+</svg> 

@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080808;
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #080808;
     --foreground: #ededed;
   }
 }
@@ -18,14 +18,11 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-geist-sans), var(--font-geist-mono), sans-serif;
 }
 
 * {
@@ -42,5 +39,250 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+/* Brutal glitch effect */
+.glitch-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.glitch-container::before,
+.glitch-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glitch-container::before {
+  background: rgba(0, 140, 255, 0.1);
+  transform: translateX(-5px);
+  animation: glitch1 2.5s infinite;
+  display: none;
+}
+
+.glitch-container::after {
+  background: rgba(255, 0, 140, 0.1);
+  transform: translateX(5px);
+  animation: glitch2 3s infinite;
+  display: none;
+}
+
+.glitch-container:hover::before,
+.glitch-container:hover::after {
+  display: block;
+}
+
+.glitch-overlay {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 136, 255, 0.15) 50%,
+    rgba(0, 0, 0, 0) 55%
+  );
+  background-size: 200% 200%;
+  animation: glitch-bg 2s linear infinite;
+}
+
+/* Dark card effect for Warrior */
+.dark-card {
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
+}
+
+/* 3D Transform & Lighting Effects */
+@supports (perspective: 1000px) {
+  #for-whom {
+    perspective: 1200px;
+    perspective-origin: center center;
+  }
+  
+  #for-whom h2 {
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+}
+
+/* Enhanced text glow */
+.text-red-500, .text-blue-400, .text-purple-400, .text-gray-300 {
+  text-shadow: 0 0 15px currentColor;
+}
+
+/* Reflective surface effect */
+.backdrop-blur-lg {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Aggressive glitch animations */
+@keyframes glitch1 {
+  0% {
+    transform: translateX(-3px);
+    opacity: 0.5;
+  }
+  20% {
+    transform: translateX(3px);
+  }
+  40% {
+    transform: translateX(-3px);
+  }
+  60% {
+    transform: translateX(3px);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateX(0px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch2 {
+  0% {
+    transform: translateX(3px);
+    opacity: 0.5;
+  }
+  20% {
+    transform: translateX(-3px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(-3px);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateX(0px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-bg {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Intense shimmering effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Pulsing highlight effect */
+@keyframes pulse-highlight {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Film grain overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Slashing animation */
+@keyframes slash {
+  0% {
+    transform: translateX(-110%) rotate(-45deg) scale(0);
+  }
+  50% {
+    transform: translateX(0%) rotate(-45deg) scale(1);
+  }
+  100% {
+    transform: translateX(110%) rotate(-45deg) scale(0);
+  }
+}
+
+/* Blood drip animation */
+@keyframes drip {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* VHS static effect */
+.vhs-static {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(255, 0, 0, 0.03) 2px,
+    rgba(255, 0, 0, 0.03) 4px
+  );
+}
+
+/* Glitch element for the header logo */
+.glitch-element {
+  position: relative;
+}
+
+.glitch-element::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0.2);
+  mix-blend-mode: overlay;
+  animation: glitch-flash 0.3s ease forwards;
+}
+
+@keyframes glitch-flash {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
