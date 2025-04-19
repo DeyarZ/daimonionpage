@@ -1,7 +1,15 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useSpring, useInView, useAnimation } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { 
+  motion, 
+  useScroll, 
+  useTransform, 
+  useSpring, 
+  useInView, 
+  useAnimation, 
+  MotionValue
+} from "framer-motion";
 
 interface ScreenItem {
   src: string;
@@ -9,6 +17,14 @@ interface ScreenItem {
   title: string;
   description: string;
 }
+
+// Define hooks outside the component with proper typing
+const useCarouselTransforms = (scrollYProgress: MotionValue<number>) => {
+  const xTransform = useTransform(scrollYProgress, [0, 1], ['-100%', '150%']);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 0.9, 0.2]);
+  
+  return { xTransform, opacityTransform };
+};
 
 export default function ScreensCarousel() {
   const containerRef = useRef<HTMLElement>(null);
@@ -39,6 +55,9 @@ export default function ScreensCarousel() {
     { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Habits", description: "Engineer your discipline" },
     { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Forge your limits" },
   ];
+  
+  // Use the hook
+  const { xTransform, opacityTransform } = useCarouselTransforms(scrollYProgress);
   
   // Update mouse position for spotlight effect
   useEffect(() => {
@@ -153,8 +172,8 @@ export default function ScreensCarousel() {
             className="absolute h-[1px] w-full left-0 bg-gradient-to-r from-transparent via-red-600/50 to-transparent"
             style={{ 
               top: `${10 + i * 12}%`,
-              x: useTransform(scrollYProgress, [0, 1], ['-100%', '150%']),
-              opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 0.9, 0.2]),
+              x: xTransform,
+              opacity: opacityTransform,
             }}
           />
         ))}
