@@ -2,6 +2,45 @@
 import Image from "next/image";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
+
+// Lokalisierte Inhalte
+interface LocalizedContent {
+  voicesFromDarkness: string;
+  realPeopleDescription: string;
+  featured: string;
+  testimonialsTitle: string;
+  trustIndicators: {
+    successRate: string;
+    activeUsers: string;
+    support: string;
+  };
+}
+
+const translations: Record<string, LocalizedContent> = {
+  de: {
+    voicesFromDarkness: "Stimmen aus der Dunkelheit.",
+    realPeopleDescription: "Kein Influencer-Schauspiel. Nur echte Menschen, die Daimonion genutzt haben – und dadurch verändert wurden.",
+    featured: "Featured",
+    testimonialsTitle: "Stimmen",
+    trustIndicators: {
+      successRate: "Erfolgsrate",
+      activeUsers: "Aktive Nutzer",
+      support: "Support"
+    }
+  },
+  en: {
+    voicesFromDarkness: "Voices from the Darkness.",
+    realPeopleDescription: "No influencer acting. Just real people who used Daimonion – and were transformed by it.",
+    featured: "Featured",
+    testimonialsTitle: "Voices",
+    trustIndicators: {
+      successRate: "Success Rate",
+      activeUsers: "Active Users",
+      support: "Support"
+    }
+  }
+};
 
 // Warrior testimonials - preserved in German
 const testimonials = [
@@ -86,7 +125,7 @@ const GlitchText = ({ text, className = "" }: { text: string; className?: string
 };
 
 // Dramatically enhanced testimonial card with more cinematic effects
-const TestimonialCard = ({ quote, name, initials, index, featured = false }: { quote: string; name: string; initials: string; index: number; featured?: boolean }) => {
+const TestimonialCard = ({ quote, name, initials, index, featured = false, featuredLabel = "Featured" }: { quote: string; name: string; initials: string; index: number; featured?: boolean; featuredLabel?: string }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
   // For 3D tilt effect with more dramatic values
@@ -273,7 +312,7 @@ const TestimonialCard = ({ quote, name, initials, index, featured = false }: { q
               ease: "easeInOut"
             }}
           >
-            Featured
+            {featuredLabel}
           </motion.span>
         )}
       </div>
@@ -362,6 +401,10 @@ const FuturisticRings = () => {
 export default function Testimonials() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { locale } = useLanguage();
+  
+  // Inhalte basierend auf Sprache
+  const content = translations[locale] || translations.de;
   
   // For background reveal effect
   const [scrollY, setScrollY] = useState(0);
@@ -395,7 +438,7 @@ export default function Testimonials() {
   const regularTestimonials = testimonials.filter(t => !t.featured);
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden bg-black">
+    <section ref={sectionRef} className="relative py-24 overflow-hidden bg-black" id="testimonials-section">
       {/* Dramatic angled divider at the top */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-br from-black via-black to-red-950/10 transform -skew-y-1 z-0" />
       
@@ -497,10 +540,10 @@ export default function Testimonials() {
           <FuturisticRings />
           
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">
-            <GlitchText text="Stimmen" /> aus der <GlitchText text="Dunkelheit." />
+            <GlitchText text={content.testimonialsTitle} /> aus der <GlitchText text={content.voicesFromDarkness} />
           </h2>
           <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
-            Kein Influencer-Schauspiel. Nur echte Menschen, die Daimonion genutzt haben – und dadurch verändert wurden.
+            {content.realPeopleDescription}
           </p>
           
           {/* Decorative separator */}
@@ -521,6 +564,7 @@ export default function Testimonials() {
               initials={featuredTestimonial.initials}
               index={0}
               featured={true}
+              featuredLabel={content.featured}
             />
           )}
           
@@ -566,21 +610,21 @@ export default function Testimonials() {
             
             <div className="flex flex-col items-center text-center relative z-10">
               <span className="text-3xl font-bold text-white mb-1">92%</span>
-              <div className="text-xs text-gray-400">Erfolgsrate</div>
+              <div className="text-xs text-gray-400">{content.trustIndicators.successRate}</div>
             </div>
             
             <div className="h-12 w-px bg-gradient-to-b from-gray-800/30 via-red-900/20 to-gray-800/30 hidden md:block"></div>
             
             <div className="flex flex-col items-center text-center relative z-10">
               <span className="text-3xl font-bold text-white mb-1">5K+</span>
-              <div className="text-xs text-gray-400">Aktive Nutzer</div>
+              <div className="text-xs text-gray-400">{content.trustIndicators.activeUsers}</div>
             </div>
             
             <div className="h-12 w-px bg-gradient-to-b from-gray-800/30 via-red-900/20 to-gray-800/30 hidden md:block"></div>
             
             <div className="flex flex-col items-center text-center relative z-10">
               <span className="text-3xl font-bold text-white mb-1">24/7</span>
-              <div className="text-xs text-gray-400">Support</div>
+              <div className="text-xs text-gray-400">{content.trustIndicators.support}</div>
             </div>
           </div>
           

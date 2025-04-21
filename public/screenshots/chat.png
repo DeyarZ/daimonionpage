@@ -1,0 +1,32 @@
+<svg width="300" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#111" />
+  <rect x="10" y="10" width="280" height="580" rx="8" fill="#181818" />
+  
+  <!-- App Header -->
+  <rect x="20" y="20" width="260" height="60" rx="4" fill="#222" />
+  <text x="40" y="55" font-family="Helvetica" font-size="18" font-weight="bold" fill="#dc2626">DAIMONION</text>
+  
+  <!-- Content Area -->
+  <rect x="30" y="100" width="240" height="120" rx="4" fill="#222" />
+  <text x="50" y="140" font-family="Helvetica" font-size="14" fill="#fff">Platzhalter für App-Screenshot</text>
+  <text x="50" y="170" font-family="Helvetica" font-size="14" fill="#dc2626">Dein Dämon wartet auf dich.</text>
+  
+  <!-- Stats Area -->
+  <rect x="30" y="240" width="110" height="100" rx="4" fill="#222" />
+  <rect x="160" y="240" width="110" height="100" rx="4" fill="#222" />
+  <circle cx="85" cy="280" r="25" fill="#111" stroke="#dc2626" stroke-width="4" />
+  <text x="78" y="286" font-family="Helvetica" font-size="16" fill="#dc2626">87%</text>
+  <text x="60" y="320" font-family="Helvetica" font-size="12" fill="#aaa">FORTSCHRITT</text>
+  
+  <circle cx="215" cy="280" r="25" fill="#111" stroke="#dc2626" stroke-width="4" />
+  <text x="208" y="286" font-family="Helvetica" font-size="16" fill="#dc2626">12</text>
+  <text x="190" y="320" font-family="Helvetica" font-size="12" fill="#aaa">TAGE STREAK</text>
+  
+  <!-- Bottom Card -->
+  <rect x="30" y="360" width="240" height="140" rx="4" fill="#222" />
+  <text x="50" y="390" font-family="Helvetica" font-size="14" font-weight="bold" fill="#fff">TÄGLICHE HERAUSFORDERUNG</text>
+  <line x1="50" y1="400" x2="250" y2="400" stroke="#dc2626" stroke-width="2" />
+  <text x="50" y="430" font-family="Helvetica" font-size="12" fill="#aaa">Heute musst du:</text>
+  <text x="50" y="460" font-family="Helvetica" font-size="14" fill="#fff">- Disziplin trainieren</text>
+  <text x="50" y="485" font-family="Helvetica" font-size="14" fill="#fff">- Schwäche überwinden</text>
+</svg> 

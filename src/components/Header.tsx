@@ -3,11 +3,41 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
+
+// Lokalisierte Inhalte
+interface LocalizedContent {
+  navItems: { id: string; label: string }[];
+  loadButton: string;
+}
+
+const translations: Record<string, LocalizedContent> = {
+  de: {
+    navItems: [
+      { id: "features-section", label: "Features" },
+      { id: "screens-section", label: "Screens" },
+      { id: "testimonials-section", label: "Stimmen" },
+    ],
+    loadButton: "Jetzt laden"
+  },
+  en: {
+    navItems: [
+      { id: "features-section", label: "Features" },
+      { id: "screens-section", label: "Screens" },
+      { id: "testimonials-section", label: "Voices" },
+    ],
+    loadButton: "Get it now"
+  }
+};
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hoverLink, setHoverLink] = useState<string | null>(null);
   const [glitchActive, setGlitchActive] = useState(false);
+  const { locale, setLocale } = useLanguage();
+  
+  // Get content based on language
+  const content = translations[locale] || translations.de;
 
   // Handle scroll effect
   useEffect(() => {
@@ -33,12 +63,13 @@ export default function Header() {
     return () => clearInterval(glitchInterval);
   }, []);
 
-  // Navigation items
-  const navItems = [
-    { href: "#features", label: "Features" },
-    { href: "#screens", label: "Screens" },
-    { href: "#testimonials", label: "Stimmen" },
-  ];
+  // Scroll to section handler
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.header
@@ -87,8 +118,8 @@ export default function Header() {
             <Image
               src="/images/daimonionlogo.png"
               alt="Daimonion"
-              width={56}
-              height={11}
+              width={42}
+              height={9}
               className="relative"
             />
             
@@ -105,8 +136,8 @@ export default function Header() {
                   <Image
                     src="/images/daimonionlogo.png"
                     alt=""
-                    width={56}
-                    height={11}
+                    width={42}
+                    height={9}
                     className="relative"
                   />
                 </motion.div>
@@ -120,8 +151,8 @@ export default function Header() {
                   <Image
                     src="/images/daimonionlogo.png"
                     alt=""
-                    width={56}
-                    height={11}
+                    width={42}
+                    height={9}
                     className="relative"
                   />
                 </motion.div>
@@ -139,11 +170,11 @@ export default function Header() {
         {/* Navigation - Right */}
         <div className="flex items-center space-x-8">
           <nav className="hidden md:flex space-x-6 font-mono text-sm">
-            {navItems.map((item) => (
-              <Link
+            {content.navItems.map((item) => (
+              <button
                 key={item.label}
-                href={item.href}
-                className="relative"
+                onClick={() => scrollToSection(item.id)}
+                className="relative cursor-pointer"
                 onMouseEnter={() => setHoverLink(item.label)}
                 onMouseLeave={() => setHoverLink(null)}
               >
@@ -164,9 +195,25 @@ export default function Header() {
                   }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 />
-              </Link>
+              </button>
             ))}
           </nav>
+
+          {/* Language switcher */}
+          <div className="hidden md:flex space-x-2 mr-4">
+            <button 
+              onClick={() => setLocale("de")} 
+              className={`w-8 h-8 rounded-full flex items-center justify-center ${locale === "de" ? 'bg-red-900/60' : 'bg-black/40'} backdrop-blur-sm hover:bg-red-900/40 transition-colors text-xs`}
+            >
+              DE
+            </button>
+            <button 
+              onClick={() => setLocale("en")} 
+              className={`w-8 h-8 rounded-full flex items-center justify-center ${locale === "en" ? 'bg-red-900/60' : 'bg-black/40'} backdrop-blur-sm hover:bg-red-900/40 transition-colors text-xs`}
+            >
+              EN
+            </button>
+          </div>
 
           {/* Call to Action */}
           <motion.a
@@ -182,7 +229,7 @@ export default function Header() {
             whileTap={{ y: 0 }}
           >
             <span className="relative inline-flex items-center">
-              <span className="relative z-10">Jetzt laden</span>
+              <span className="relative z-10">{content.loadButton}</span>
               
               {/* Optional: Subtle flame icon */}
               <motion.span 
@@ -201,43 +248,15 @@ export default function Header() {
             aria-label="Open mobile menu"
           >
             <span className="sr-only">Menu</span>
-            <div className="w-5 flex flex-col space-y-1.5">
-              <span className="block h-px w-5 bg-white"></span>
-              <span className="block h-px w-3.5 ml-1.5 bg-white"></span>
-              <span className="block h-px w-5 bg-white"></span>
+            
+            {/* Hamburger icon */}
+            <div className="w-5 h-3.5 relative">
+              <span className="absolute h-[1px] w-full bg-white/80 top-0 right-0 transform transition-all duration-300"></span>
+              <span className="absolute h-[1px] w-full bg-white/80 bottom-0 right-0 transform transition-all duration-300"></span>
             </div>
           </button>
         </div>
       </div>
-
-      {/* Subtle bottom border/scanner effect */}
-      <AnimatePresence>
-        {scrolled && (
-          <motion.div 
-            className="absolute bottom-0 left-0 w-full h-[1px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neutral-700/50 to-transparent" />
-            
-            {/* Animated scanner dot */}
-            <motion.div 
-              className="absolute top-0 left-0 w-[40px] h-[1px] bg-gradient-to-r from-transparent via-white to-transparent"
-              animate={{ 
-                left: ["-40px", "calc(100% + 40px)"],
-              }}
-              transition={{ 
-                duration: 4,
-                ease: "linear",
-                repeat: Infinity,
-                repeatDelay: 1
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.header>
   );
 } 

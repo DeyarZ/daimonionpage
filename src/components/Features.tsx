@@ -1,299 +1,269 @@
 "use client";
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useAnimation } from "framer-motion";
 
-// Animation variants with more intensity
-const containerVariants = {
+export default function Features() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.2 });
+  const controls = useAnimation();
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+  
+  const features = [
+    {
+      title: "Absolut Kompromisslos",
+      description: "Daimonion lässt dich nicht mit schwachen Ausreden davonkommen. Wenn du versagst, wird es dich damit konfrontieren.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      )
+    },
+    {
+      title: "Gnadenlose Analyse",
+      description: "KI scannt dein Verhalten, identifiziert Muster deines Versagens und seziert deine Schwächen mit chirurgischer Präzision.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      )
+    },
+    {
+      title: "Psychologische Kriegsführung",
+      description: "Erhalte maßgeschneiderte Interventionen, die genau auf deine psychologischen Schwachstellen abzielen. Daimonion kennt dich besser als du selbst.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+      )
+    },
+    {
+      title: "Niemals Kapitulieren",
+      description: "Während andere Apps dich mit süßen Benachrichtigungen umwerben, wird Daimonion niemals aufgeben, bis du deine Ziele erreichst. Kein Raum für Mittelmäßigkeit.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+      )
+    },
+    {
+      title: "Emotionale Manipulation",
+      description: "Fortschrittlich kalibrierte Techniken, die deine emotionalen Auslöser erkennen und nutzen, um maximale Leistung zu erzwingen. Deine Gefühle sind nur ein Werkzeug.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      )
+    },
+    {
+      title: "Totale Überwachung",
+      description: "Jede Sekunde, jede Entscheidung wird protokolliert und analysiert. Dein Daimonion sieht alles und vergisst nichts - vor allem nicht deine Misserfolge.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      )
+    }
+  ];
+  
+  const container = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+        staggerChildren: 0.1
     }
   }
 };
 
-const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
+  const item = {
+    hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1.0] }
-  }
-};
-
-// More brutal icon renderings
-const featuresList = [
-  {
-    title: "Brutal ehrlicher Chatbot",
-    description: "Kein Trost. Keine Lügen. Nur die Wahrheit, die dich stärker macht. Wähle zwischen \"Normal\", \"Hart\" oder \"Brutal Ehrlich\" – und lass dich transformieren.",
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3C7.58172 3 4 6.58172 4 11C4 13.3286 4.94427 15.4175 6.45006 16.9232C6.32795 17.4636 6.13616 17.9844 5.88323 18.4749C5.61344 18.9998 5.27609 19.4879 4.88323 19.9311C4.68861 20.157 4.66667 20.4783 4.83751 20.7294C5.00834 20.9805 5.32524 21.0957 5.61344 21.0089C6.58929 20.7461 7.48114 20.3052 8.24821 19.7192C9.38257 20.2334 10.6566 20.5231 12 20.5231C16.4183 20.5231 20 16.9414 20 12.5231C20 8.10478 16.4183 4.52306 12 4.52306" stroke="url(#paint0_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13C13.1046 13 14 12.1046 14 11Z" stroke="url(#paint1_linear)" strokeWidth="2"/>
-        <path d="M18 8.5C18 9.88071 16.8807 11 15.5 11C14.1193 11 13 9.88071 13 8.5C13 7.11929 14.1193 6 15.5 6C16.8807 6 18 7.11929 18 8.5Z" stroke="url(#paint2_linear)" strokeWidth="2"/>
-        <defs>
-          <linearGradient id="paint0_linear" x1="4" y1="3" x2="20" y2="20" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint1_linear" x1="10" y1="9" x2="14" y2="13" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint2_linear" x1="13" y1="6" x2="18" y2="11" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-  },
-  {
-    title: "Militärisches Fokus-System",
-    description: "Struktur erzeugt Disziplin. Klarheit erzeugt Resultate. Daimonion ist dein persönlicher Drill Sergeant für Aufgaben, Routinen und Gewohnheiten.",
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="url(#paint0_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="url(#paint1_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z" stroke="url(#paint2_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <defs>
-          <linearGradient id="paint0_linear" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint1_linear" x1="6" y1="6" x2="18" y2="18" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint2_linear" x1="10" y1="10" x2="14" y2="14" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-  },
-  {
-    title: "Taktisches Flow & Journaling",
-    description: "Finde den Kampfmodus. Jeder Krieger braucht Reflexion und Klarheit. Der Flow-Timer macht dich zur ultimativen Konzentrations-Maschine.",
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 21H3.8C3.35817 21 3 20.6418 3 20.2V3" stroke="url(#paint0_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M21 6L15.5 12L10.5 8L3 16" stroke="url(#paint1_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M17 6H21V10" stroke="url(#paint2_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <defs>
-          <linearGradient id="paint0_linear" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint1_linear" x1="3" y1="6" x2="21" y2="16" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-          <linearGradient id="paint2_linear" x1="17" y1="6" x2="21" y2="10" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-  },
-  {
-    title: "Dein volles Arsenal",
-    description: "Das sind nur die sichtbaren Waffen. Entdecke ein komplettes Waffenarsenal für mentale Klarheit, Fokus und eine Disziplin, die dich unaufhaltbar macht.",
-    icon: (
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13 2L4.09344 12.6879C3.74463 13.1064 3.57023 13.3157 3.57055 13.491C3.57083 13.6425 3.67333 13.7787 3.8298 13.8458C4.01313 13.9231 4.30729 13.806 4.89561 13.5717L10.1493 11.4437C10.5231 11.2831 10.71 11.2028 10.9003 11.2054C11.0639 11.2077 11.2214 11.2744 11.3377 11.3907C11.471 11.524 11.5296 11.7263 11.6468 12.1308L13.4331 17.9133C13.6223 18.5423 13.7169 18.8569 13.8739 18.9442C14.0101 19.0199 14.1752 19.0203 14.3117 18.945C14.469 18.8583 14.5654 18.5446 14.7582 17.9172L19.9827 3.51584C20.1452 2.97968 20.2265 2.7116 20.1625 2.55451C20.1068 2.41982 19.996 2.31422 19.8585 2.26413C19.6983 2.20578 19.4272 2.28568 18.8852 2.44548L13 4" stroke="url(#paint0_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <defs>
-          <linearGradient id="paint0_linear" x1="3.57" y1="2" x2="20.2" y2="19" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FF2D2D" />
-            <stop offset="1" stopColor="#D10000" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-  },
-];
-
-export default function Features() {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  });
-
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+      transition: { type: "spring", stiffness: 300, damping: 24 }
+    }
+  };
 
   return (
-    <section className="relative bg-black overflow-hidden py-24 text-white">
-      {/* Dark, gritty background */}
-      <div className="absolute inset-0 bg-[#050505] bg-[url('/images/noise.png')] bg-repeat opacity-40 mix-blend-multiply z-0" />
+    <section 
+      className="relative py-20 bg-black text-white overflow-hidden" 
+      ref={containerRef}
+      id="features-section"
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-red-950/5 to-black"></div>
       
-      {/* Aggressive grid pattern */}
-      <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10 z-0" />
+      {/* Decorative Elements */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-red-900/50 to-transparent"></div>
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-red-900/50 to-transparent"></div>
       
-      {/* Harsh diagonal accent */}
-      <div className="absolute top-0 -right-20 bottom-0 w-[50%] bg-gradient-to-l from-red-950/20 to-transparent transform -skew-x-12 z-0" />
-      
-      {/* Animated glow element */}
+      {/* Dynamic Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 15 }).map((_, i) => (
       <motion.div 
-        className="absolute -left-40 top-40 w-[500px] h-[500px] rounded-full blur-[150px] z-0"
+            key={i}
+            className="absolute w-1 h-6 bg-red-700/20"
+            initial={{ 
+              x: Math.random() * 100 + '%', 
+              y: Math.random() * 100 + '%',
+              opacity: 0 
+            }}
         animate={{
-          backgroundColor: ["rgba(153, 27, 27, 0.1)", "rgba(153, 27, 27, 0.15)", "rgba(153, 27, 27, 0.1)"],
-          scale: [1, 1.1, 1],
+              x: Math.random() * 100 + '%',
+              y: Math.random() * 100 + '%',
+              opacity: [0, 0.5, 0],
         }}
         transition={{
-          duration: 8,
+              duration: Math.random() * 4 + 3,
           repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      
-      {/* Pulsing accent in opposite corner */}
-      <motion.div 
-        className="absolute -right-40 bottom-40 w-[500px] h-[500px] rounded-full blur-[150px] z-0"
-        animate={{
-          backgroundColor: ["rgba(120, 10, 10, 0.1)", "rgba(120, 10, 10, 0.15)", "rgba(120, 10, 10, 0.1)"],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 4,
-        }}
-      />
-      
-      {/* Sharp accent lines */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-red-950/0 via-red-950/30 to-red-950/0"></div>
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-red-950/0 via-red-950/30 to-red-950/0"></div>
+              repeatType: 'loop',
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
       </div>
       
-      <div className="container relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-4 z-10 relative">
         <motion.div
+          className="max-w-4xl mx-auto text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
         >
-          <span className="inline-flex items-center mb-3 px-3 py-1 rounded-sm bg-red-950/40 border-l-2 border-red-700 font-mono uppercase tracking-widest text-xs text-red-500">
-            <span className="mr-2">⚔️</span> Dein Arsenal
+          <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-red-600 uppercase bg-red-900/20 rounded-full">
+            WO ANDERE AUFHÖREN, FANGEN WIR AN
           </span>
-          
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
-            Was Daimonion <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-800">tödlich effektiv</span> macht
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            Kein <span className="text-red-600">Wellness-Tool</span>.
+            <br />Eine <span className="text-red-600">Kampfmaschine</span> für deine Ziele.
           </h2>
-          
-          <p className="text-xl text-gray-300 mb-12 font-medium">
-            Keine Features zum Rumspielen. Nur <span className="text-white">Waffen für Disziplin.</span>
+          <p className="text-lg text-gray-400">
+            Daimonion nutzt fortschrittliche Psychologie und künstliche Intelligenz, um dich zu einer höheren Version deiner selbst zu zwingen - koste es, was es wolle.
           </p>
         </motion.div>
         
         <motion.div
-          ref={ref}
-          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={container}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16"
+          animate={controls}
         >
-          {featuresList.map((feature, index) => (
+          {features.map((feature, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              className="relative group"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              className="group relative bg-gradient-to-b from-gray-900 to-black p-8 rounded-lg border border-gray-800 hover:border-red-900 transition-all duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)] overflow-hidden"
+              variants={item}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
             >
-              {/* Aggressive highlight glow */}
+              {/* Hover effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-red-900/0 via-red-900/0 to-red-900/0 opacity-0 group-hover:opacity-100 group-hover:from-red-900/20 group-hover:via-red-900/5 group-hover:to-red-900/0 transition-all duration-500"></div>
+              
+              {/* Glitch line effects on hover */}
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/0 rounded-xl blur-lg z-0 opacity-0 group-hover:opacity-100"
-                animate={hoveredIndex === index ? {
-                  opacity: [0, 0.7, 0.3],
-                } : {}}
-                transition={{
-                  duration: 2,
-                  ease: "easeOut",
-                }}
+                className="absolute h-0.5 bg-red-700/60 w-1/3 left-0 top-0 opacity-0 group-hover:opacity-100"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.div 
+                className="absolute h-0.5 bg-red-700/60 w-1/4 right-0 bottom-0 opacity-0 group-hover:opacity-100"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
               />
               
-              {/* Card with harsh black background and aggressive styling */}
-              <div className="relative bg-[#0a0a0a] border border-red-950/30 p-8 rounded-xl shadow-xl shadow-red-950/10 hover:shadow-red-900/20 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
-                {/* Slash animation on hover */}
-                <motion.div 
-                  className="absolute inset-0 overflow-hidden rounded-xl pointer-events-none"
-                  animate={hoveredIndex === index ? {
-                    opacity: [0, 0.8, 0],
-                  } : {}}
-                  transition={{
-                    duration: 0.8,
-                    ease: "easeOut",
-                  }}
-                >
-                  <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-                    <div 
-                      className="absolute top-0 left-0 w-[200%] h-full bg-gradient-to-r from-transparent via-red-500/10 to-transparent transform -translate-x-full"
-                      style={{
-                        animation: hoveredIndex === index ? 'slash 1.5s ease-out forwards' : 'none',
-                      }}
-                    />
-                  </div>
-                </motion.div>
-                
-                {/* Icon with dramatic lighting */}
-                <div className="mb-6 text-red-600 relative">
-                  <div className="absolute -inset-2 bg-red-600/5 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-900 mb-5 group-hover:bg-red-900/30 transition-colors duration-300">
                   {feature.icon}
                 </div>
-                
-                {/* Dramatic title with glowing effect */}
-                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-red-50 transition-colors duration-300">
+                <h3 className="text-xl font-bold mb-3 group-hover:text-red-500 transition-colors duration-300">
                   {feature.title}
-                  <div className="w-12 h-0.5 bg-gradient-to-r from-red-700 to-red-900 mt-2 rounded-full" />
                 </h3>
-                
-                {/* Description with improved typography */}
-                <p className="text-gray-400 mb-4 flex-grow font-medium leading-relaxed">
+                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 text-sm">
                   {feature.description}
                 </p>
-                
-                {/* Harsh accent line at bottom */}
-                <div className="w-0 group-hover:w-full h-[2px] bg-gradient-to-r from-red-700 to-red-900 rounded-full transition-all duration-500 ease-out" />
               </div>
             </motion.div>
           ))}
         </motion.div>
         
-        {/* Brutal CTA button with animations */}
+        {/* Dark callout box */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20 text-center"
+          className="mt-20 p-10 rounded-xl bg-gradient-to-br from-gray-900/80 via-black/90 to-gray-900/80 border border-gray-800 relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5, duration: 0.7 }}
         >
-          <a 
-            href="#download" 
-            className="relative inline-flex items-center justify-center group"
-          >
-            {/* Button main body */}
-            <span className="relative z-10 px-8 py-4 bg-gradient-to-br from-red-700 to-red-900 text-white font-medium rounded-md overflow-hidden flex items-center">
-              <span className="mr-2">Daimonion Herunterladen</span>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.75 6.75L19.25 12L13.75 17.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M19 12H4.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Diagonal lines for decoration */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute h-px bg-red-600"
+                style={{
+                  width: '140%',
+                  top: `${i * 10}%`,
+                  left: '-20%',
+                  transform: 'rotate(-15deg)',
+                }}
+              />
+            ))}
+          </div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold mb-2">
+                Bereit, dich deinen <span className="text-red-600">Dämonen</span> zu stellen?
+              </h3>
+              <p className="text-gray-400">
+                Nicht jeder ist stark genug für Daimonion. Bist du es?
+              </p>
+            </div>
+            <motion.a
+              href="#"
+              className="group relative overflow-hidden px-8 py-4 bg-red-900 text-white font-semibold rounded-lg flex items-center gap-2 hover:bg-red-800 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Download Starten</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
               
-              {/* Subtle pulse animation inside button */}
-              <span className="absolute inset-0 -z-10 bg-gradient-to-r from-red-600/0 via-red-600/20 to-red-600/0 translate-x-[-100%] animate-[shimmer_2s_infinite]" />
-            </span>
-            
-            {/* Button glow effect */}
-            <span className="absolute -inset-3 rounded-xl bg-gradient-to-r from-red-600/0 via-red-600/40 to-red-600/0 opacity-0 blur-xl group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500" />
-            
-            {/* Button shadow */}
-            <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-red-800/40 to-red-900/40 blur group-hover:opacity-100 transition-opacity duration-500 animate-pulse opacity-0 group-hover:opacity-100" />
-          </a>
+              {/* Animated glitch particle effects on hover */}
+              <div className="absolute top-0 right-0 bottom-0 left-0 opacity-0 group-hover:opacity-30 overflow-hidden">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <motion.div 
+                    key={i}
+                    className="absolute h-0.5 bg-white"
+                    style={{ 
+                      left: `${Math.random() * 100}%`, 
+                      top: `${Math.random() * 100}%`, 
+                      width: `${Math.random() * 20 + 5}px` 
+                    }}
+                    animate={{ 
+                      opacity: [0, 1, 0],
+                      x: [0, Math.random() * 10 - 5]
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      repeat: Infinity,
+                      repeatType: "mirror"
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>

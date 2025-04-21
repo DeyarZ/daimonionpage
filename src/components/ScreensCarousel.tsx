@@ -10,6 +10,7 @@ import {
   useAnimation, 
   MotionValue
 } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ScreenItem {
   src: string;
@@ -17,6 +18,47 @@ interface ScreenItem {
   title: string;
   description: string;
 }
+
+// Lokalisierte Inhalte
+interface LocalizedContent {
+  visualizeWeapon: string;
+  thisIsYourDaimonion: string;
+  description: string;
+  focusAndAccountability: string;
+  noBullshit: string;
+  screens: ScreenItem[];
+}
+
+const translations: Record<string, LocalizedContent> = {
+  de: {
+    visualizeWeapon: "VISUALISIERE DEINE WAFFE",
+    thisIsYourDaimonion: "Das ist dein Daimonion.",
+    description: "Brutal. Minimalistisch. Konstruiert für",
+    focusAndAccountability: "vernichtenden Fokus & kompromisslose Verantwortlichkeit",
+    noBullshit: "Kein Bullshit. Nur Resultate.",
+    screens: [
+      { src: "/images/Flow Timer Screenshot.png", alt: "Flow Timer", title: "Flow Timer", description: "Dominiere deine Produktivitätszonen" },
+      { src: "/images/Chatbot Screenshot.png", alt: "Chatbot", title: "KI-Coach", description: "Dein persönlicher Dämon" },
+      { src: "/images/Dashboard Screenshot.png", alt: "Dashboard", title: "Dashboard", description: "Kommandozentrale deiner Macht" },
+      { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Gewohnheiten", description: "Erschaffe eiserne Disziplin" },
+      { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Sprenge deine Grenzen" },
+    ]
+  },
+  en: {
+    visualizeWeapon: "VISUALIZE THE WEAPON",
+    thisIsYourDaimonion: "This Is Your Daimonion.",
+    description: "Brutal. Minimalist. Engineered for",
+    focusAndAccountability: "Devastating Focus & Uncompromising Accountability",
+    noBullshit: "No Bullshit. Only Results.",
+    screens: [
+      { src: "/images/Flow Timer Screenshot.png", alt: "Flow Timer", title: "Flow Timer", description: "Dominate your productive zones" },
+      { src: "/images/Chatbot Screenshot.png", alt: "Chatbot", title: "AI Coach", description: "Your personal demon" },
+      { src: "/images/Dashboard Screenshot.png", alt: "Dashboard", title: "Dashboard", description: "Command center of power" },
+      { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Habits", description: "Engineer your discipline" },
+      { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Forge your limits" },
+    ]
+  }
+};
 
 // Define hooks outside the component with proper typing
 const useCarouselTransforms = (scrollYProgress: MotionValue<number>) => {
@@ -33,6 +75,10 @@ export default function ScreensCarousel() {
   const [activeIndex, setActiveIndex] = useState(2); // Start with middle item
   const [isDragging, setIsDragging] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { locale } = useLanguage(); // Verwende den globalen Language Context
+  
+  // Inhalte basierend auf Sprache
+  const content = translations[locale] || translations.de;
   
   // Parallax effect for background with increased intensity
   const { scrollYProgress } = useScroll({
@@ -46,15 +92,6 @@ export default function ScreensCarousel() {
   
   const springBgY = useSpring(bgY, { stiffness: 100, damping: 30 });
   const springScale = useSpring(scale, { stiffness: 120, damping: 30 });
-  
-  // Screen data
-  const screens: ScreenItem[] = [
-    { src: "/images/Flow Timer Screenshot.png", alt: "Flow Timer", title: "Flow Timer", description: "Dominate your productive zones" },
-    { src: "/images/Chatbot Screenshot.png", alt: "Chatbot", title: "KI-Coach", description: "Your personal demon" },
-    { src: "/images/Dashboard Screenshot.png", alt: "Dashboard", title: "Dashboard", description: "Command center of power" },
-    { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Habits", description: "Engineer your discipline" },
-    { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Forge your limits" },
-  ];
   
   // Use the hook
   const { xTransform, opacityTransform } = useCarouselTransforms(scrollYProgress);
@@ -83,11 +120,11 @@ export default function ScreensCarousel() {
   }, [isInView, controls]);
   
   const nextScreen = () => {
-    setActiveIndex(prev => (prev + 1) % screens.length);
+    setActiveIndex(prev => (prev + 1) % content.screens.length);
   };
   
   const prevScreen = () => {
-    setActiveIndex(prev => (prev - 1 + screens.length) % screens.length);
+    setActiveIndex(prev => (prev - 1 + content.screens.length) % content.screens.length);
   };
   
   // Auto-rotate carousel
@@ -100,11 +137,11 @@ export default function ScreensCarousel() {
   
   // Returns position and scale for each item based on its index relative to activeIndex
   const getItemStyles = (index: number) => {
-    const diff = (index - activeIndex + screens.length) % screens.length;
+    const diff = (index - activeIndex + content.screens.length) % content.screens.length;
     let normalizedDiff = diff;
     
     // Normalize diff to be between -2 and 2
-    if (diff > 2) normalizedDiff = diff - screens.length;
+    if (diff > 2) normalizedDiff = diff - content.screens.length;
     
     // Create a circular position effect
     const x = normalizedDiff * 120; // Base x offset - increased spacing
@@ -131,6 +168,7 @@ export default function ScreensCarousel() {
     <section 
       ref={containerRef}
       className="relative bg-[#050505] py-32 text-white overflow-hidden"
+      id="screens-section"
     >
       {/* Dark gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#080808] to-black opacity-80 z-0" />
@@ -200,16 +238,16 @@ export default function ScreensCarousel() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              VISUALIZE THE WEAPON
+              {content.visualizeWeapon}
             </motion.span>
             
             <h2 className="text-4xl sm:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">
-              This Is Your Daimonion.
+              {content.thisIsYourDaimonion}
             </h2>
             
             <p className="text-gray-400 mt-6 text-xl max-w-2xl leading-relaxed font-medium">
-              Brutal. Minimalist. Engineered for <span className="text-white font-bold">Devastating Focus & Uncompromising Accountability</span>.
-              <span className="block mt-2 text-red-500">No Bullshit. Only Results.</span>
+              {content.description} <span className="text-white font-bold">{content.focusAndAccountability}</span>.
+              <span className="block mt-2 text-red-500">{content.noBullshit}</span>
             </p>
           </div>
         </motion.div>
@@ -222,7 +260,7 @@ export default function ScreensCarousel() {
             animate={{ rotateX: "8deg" }}
             transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
           >
-            {screens.map((screen, index) => (
+            {content.screens.map((screen, index) => (
               <motion.div
                 key={screen.alt}
                 className="absolute top-0 left-0 right-0 flex flex-col items-center cursor-pointer"
@@ -355,7 +393,7 @@ export default function ScreensCarousel() {
             </motion.button>
             
             <div className="flex space-x-3 items-center">
-              {screens.map((_, idx) => (
+              {content.screens.map((_, idx) => (
                 <motion.button
                   key={idx}
                   className={`w-3 h-3 rounded-sm ${idx === activeIndex ? 'bg-red-600' : 'bg-gray-800'}`}
