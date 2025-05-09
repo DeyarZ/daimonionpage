@@ -22,7 +22,7 @@ interface LocalizedContent {
 
 const translations: Record<string, LocalizedContent> = {
   de: {
-    startTransformation: "Coach aktivieren",
+    startTransformation: "Jetzt downloaden",
     headline: "Diese App zerstört deine Ausreden – in 7 Tagen.",
     tagline: "Die KI, die dich anschreit, bis du lieferst.",
     transformText: "Kein Bullshit.",
@@ -36,7 +36,7 @@ const translations: Record<string, LocalizedContent> = {
     statsKompromisslos: "Brutal ehrlich",
   },
   en: {
-    startTransformation: "Activate Coach",
+    startTransformation: "Download Now",
     headline: "This app destroys your excuses – in 7 days.",
     tagline: "The AI that screams at you until you deliver.",
     transformText: "No bullshit.",
