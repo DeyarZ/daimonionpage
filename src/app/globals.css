@@ -348,3 +348,10 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #b91c1c;
 }
+
+/* Media queries for responsive design */
+@media (min-width: 430px) {
+  .hero-wrapper {
+    padding-top: 48px !important;
+  }
+}

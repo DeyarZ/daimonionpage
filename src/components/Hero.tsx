@@ -22,32 +22,32 @@ interface LocalizedContent {
 
 const translations: Record<string, LocalizedContent> = {
   de: {
-    startTransformation: "BEGINNE DIE TRANSFORMATION",
-    headline: "ERWECKE DEIN WAHRES POTENZIAL",
-    tagline: "Keine App für Weicheier.",
-    transformText: "Eine KI, die dich nicht",
-    notMotivating: "motiviert",
-    transforming: "transformiert",
+    startTransformation: "Coach aktivieren",
+    headline: "Diese App zerstört deine Ausreden – in 7 Tagen.",
+    tagline: "Die KI, die dich anschreit, bis du lieferst.",
+    transformText: "Kein Bullshit.",
+    notMotivating: "Keine Ausreden.",
+    transforming: "Nur brutale Ergebnisse.",
     appStore: "App Store",
     downloadIn: "Download im",
     googlePlay: "Google Play",
-    downloadAt: "DOWNLOAD BEI",
-    statsTransformed: "Transformierte Leben",
-    statsKompromisslos: "Kompromisslos",
+    downloadAt: "Laden im",
+    statsTransformed: "Veränderte Leben",
+    statsKompromisslos: "Brutal ehrlich",
   },
   en: {
-    startTransformation: "BEGIN TRANSFORMATION",
-    headline: "AWAKEN YOUR TRUE POTENTIAL",
-    tagline: "Not an app for the weak.",
-    transformText: "An AI that doesn't",
-    notMotivating: "motivate",
-    transforming: "transform",
+    startTransformation: "Activate Coach",
+    headline: "This app destroys your excuses – in 7 days.",
+    tagline: "The AI that screams at you until you deliver.",
+    transformText: "No bullshit.",
+    notMotivating: "No excuses.",
+    transforming: "Only brutal results.",
     appStore: "App Store",
     downloadIn: "Download on",
     googlePlay: "Google Play",
-    downloadAt: "GET IT ON",
-    statsTransformed: "Transformed Lives",
-    statsKompromisslos: "Uncompromising",
+    downloadAt: "GET IT NOW ON",
+    statsTransformed: "Lives changed",
+    statsKompromisslos: "Brutally honest",
   }
 };
 
@@ -63,6 +63,34 @@ export default function Hero() {
   
   // Texte basierend auf Sprache
   const content = translations[locale] || translations.de;
+  
+  // Handle app store redirect based on device
+  const handleAppStoreRedirect = (e: React.MouseEvent) => {
+    // Don't block the reveal animation
+    handleReveal();
+    
+    // Delay redirect to allow animation to play
+    setTimeout(() => {
+      // Check if window is defined (for SSR)
+      if (typeof window !== 'undefined') {
+        const userAgent = navigator.userAgent.toLowerCase();
+        
+        // Check for iOS devices
+        if (/iphone|ipad|ipod/.test(userAgent)) {
+          window.location.href = 'https://apps.apple.com/de/app/daimonion/id6740612619';
+        }
+        // Check for Android devices
+        else if (/android/.test(userAgent)) {
+          window.location.href = 'https://play.google.com/store/apps/details?id=com.daimonion.app';
+        }
+        // Fallback for other devices
+        else {
+          // Stay on the landing page or use a fallback URL
+          // window.location.href = '/download';
+        }
+      }
+    }, 1500); // Match the delay from handleReveal
+  };
   
   // Loading animation
   useEffect(() => {
@@ -138,11 +166,20 @@ export default function Hero() {
   return (
     <section 
       ref={heroRef}
-      className="relative bg-black overflow-hidden"
-      style={{ height: "100vh" }}
+      className="relative bg-black overflow-hidden hero-wrapper"
+      style={{ 
+        minHeight: "100vh", 
+        paddingTop: "clamp(32px, 8vh, 72px)",
+        paddingBottom: "clamp(32px, 5vh, 64px)",
+        paddingLeft: "env(safe-area-inset-left)",
+        paddingRight: "env(safe-area-inset-right)"
+      }}
     >
       {/* Dark, aggressive background with subtle noise */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0a0a0a] to-black z-0" />
+      
+      {/* Darker overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black/60 z-1" />
       
       {/* Audio element */}
       <audio ref={audioRef} loop>
@@ -282,22 +319,38 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="container relative z-10 mx-auto px-8 h-full flex flex-col justify-center items-center"
+              className="container relative z-10 mx-auto px-4 flex flex-col justify-center items-center"
+              style={{ 
+                minHeight: "calc(100vh - clamp(64px, 13vh, 136px))",
+              }}
             >
-              <div className="flex flex-col items-center text-center max-w-4xl">
+              <div 
+                className="flex flex-col items-center text-center max-w-4xl w-full"
+                style={{ 
+                  gap: "clamp(12px, 2.5vh, 28px)"
+                }}
+              >
                 <motion.div 
-                  className="mb-2"
+                  className="mb-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-700 font-bold tracking-widest uppercase text-sm px-2 py-1 border-l-2 border-red-700">
+                  <span 
+                    className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-700 font-bold tracking-widest uppercase px-6 py-1 max-w-full inline-block"
+                    style={{ 
+                      fontSize: "clamp(12px, 3vw + 2px, 16px)"
+                    }}
+                  >
                     {content.headline}
                   </span>
                 </motion.div>
                 
                 <motion.h1 
-                  className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-6 leading-none"
+                  className="font-bold tracking-tighter text-white leading-none"
+                  style={{ 
+                    fontSize: "clamp(35px, 7.7vw + 4px, 70px)"
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ 
@@ -305,62 +358,45 @@ export default function Hero() {
                     duration: 0.8
                   }}
                 >
-                  <span className="block mb-2">DAIMONION</span>
-                  <motion.span 
-                    className="block bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-500 to-red-800"
-                    animate={{
-                      textShadow: ["0 0 10px rgba(220, 38, 38, 0.7)", "0 0 15px rgba(220, 38, 38, 0.4)", "0 0 10px rgba(220, 38, 38, 0.7)"]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    DEIN INNERER DÄMON
-                  </motion.span>
+                  <span className="block">DAIMONION</span>
                 </motion.h1>
                 
                 <motion.p 
-                  className="text-xl sm:text-2xl text-gray-400 mb-12 max-w-2xl font-medium leading-relaxed"
+                  className="text-white font-medium leading-tight"
+                  style={{ 
+                    fontSize: "clamp(16px, 3.2vw + 2px, 22px)"
+                  }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.3, duration: 0.8 }}
                 >
-                  <span className="block mb-2">{content.tagline}</span>
-                  <span className="block">{content.transformText} </span>
-                  <motion.span 
-                    className="relative inline-block"
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: [1, 0.7, 1] }}
-                    transition={{ 
-                      duration: 2, 
-                      repeat: Infinity,
-                      repeatType: 'reverse'
-                    }}
-                  >
-                    <span className="line-through opacity-60">{content.notMotivating}</span>
-                    <span className="absolute h-[2px] bg-red-600 w-full top-1/2 -translate-y-1/2"></span>
-                  </motion.span>
-                  <motion.span 
-                    className="font-bold relative ml-2 text-white"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.8 }}
-                  >
-                    {content.transforming}.
-                    <span className="absolute bottom-0 left-0 w-full h-1 bg-red-600"></span>
-                  </motion.span>
+                  <span className="block">Die KI, die dich anschreit,</span>
+                  <span className="block">bis du lieferst.</span>
                 </motion.p>
                 
                 {/* Interactive button */}
                 <motion.button
-                  className="group relative overflow-hidden bg-gradient-to-r from-red-700 to-red-900 hover:from-red-800 hover:to-red-950 text-white px-10 py-5 rounded-md uppercase tracking-wider font-bold text-lg"
+                  className="group relative overflow-hidden bg-gradient-to-b from-red-600 to-red-900 hover:from-red-700 hover:to-red-950 text-white py-6 rounded-md uppercase tracking-wider font-bold w-[90%] max-w-[500px]"
+                  style={{
+                    minHeight: "48px",
+                    fontSize: "clamp(16px, 4.2vw, 20px)"
+                  }}
                   initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 1.6 }}
-                  onClick={handleReveal}
-                  whileHover={{ scale: 1.05 }}
+                  animate={{ 
+                    y: 0, 
+                    opacity: 1,
+                    boxShadow: ["0 0 0 0 rgba(239, 68, 68, 0)", "0 0 0 8px rgba(239, 68, 68, 0.3)", "0 0 0 0 rgba(239, 68, 68, 0)"]
+                  }}
+                  transition={{ 
+                    delay: 1.6,
+                    boxShadow: {
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 1
+                    }
+                  }}
+                  onClick={handleAppStoreRedirect}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="relative z-10">{content.startTransformation}</span>
@@ -394,20 +430,87 @@ export default function Hero() {
                   </div>
                 </motion.button>
                 
-                {/* App Store Buttons */}
-                <motion.div 
-                  className="flex flex-col sm:flex-row gap-4 mt-10"
+                <motion.p
+                  className="text-[#BFBFBF] text-xs download-note"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.8 }}
+                  transition={{ delay: 1.65 }}
+                  style={{ 
+                    fontSize: "12px", 
+                    fontWeight: "normal",
+                    marginBottom: "clamp(10px, 2vh, 24px)"
+                  }}
+                >
+                  Kostenlos im App Store oder Google Play
+                </motion.p>
+                
+                <div className="flex flex-col items-center" style={{ 
+                  gap: "clamp(6px, 1.2vh, 12px)",
+                  marginTop: "clamp(0px, 0.5vh, 4px)" 
+                }}>
+                  <motion.p
+                    className="text-[#FF4545] text-sm font-medium"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.8 }}
+                  >
+                    Nur heute: 7-Tage-Free-Trial sichern
+                  </motion.p>
+                  
+                  {/* Rating line with stars and user counts */}
+                  <motion.div 
+                    className="flex items-center justify-center gap-2 bg-black/30 backdrop-blur-sm rounded-full py-2 px-4 whitespace-nowrap text-center"
+                    style={{ 
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      marginTop: "clamp(10px, 2vh, 16px)"
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.9 }}
+                  >
+                    <div className="flex items-center star-rating" style={{ 
+                      color: "#FFDD55", 
+                      opacity: 1,
+                      textShadow: "0 0 4px rgba(255, 221, 85, 0.5)",
+                      fontSize: "18px",
+                      marginRight: "2px"
+                    }}>
+                      <span>★★★★</span><span style={{ opacity: 0.5 }}>★</span>
+                    </div>
+                    <span className="text-white">4,8</span>
+                    <span className="text-gray-400 mx-1">·</span>
+                    <span className="text-white">5.000+ Nutzer</span>
+                  </motion.div>
+                  
+                  {/* 100% Brutal ehrlich pill */}
+                  <motion.div
+                    className="px-2 py-0.5 text-[11px] bg-[#2a2a2a] rounded-full text-gray-200"
+                    style={{
+                      marginTop: "clamp(6px, 1.5vh, 12px)"
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.95 }}
+                  >
+                    100% Brutal ehrlich
+                  </motion.div>
+                </div>
+                
+                {/* App Store Buttons */}
+                <motion.div 
+                  className="flex flex-row gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.0 }}
                 >
                   <motion.a
                     href="https://apps.apple.com/de/app/daimonion/id6740612619"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative overflow-hidden rounded-xl bg-black/50 border border-gray-800 hover:border-red-900 transition-all duration-300"
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="group relative overflow-hidden rounded-xl bg-black/30 transition-all duration-300 transform scale-80"
+                    whileHover={{ scale: 0.85, y: -2 }}
+                    whileTap={{ scale: 0.78 }}
                   >
                     <motion.div 
                       className="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
@@ -415,7 +518,7 @@ export default function Hero() {
                     
                     {/* App Store Button */}
                     <div className="flex items-center px-5 py-3">
-                      <svg viewBox="0 0 24 24" width="24" height="24" className="text-white mr-3">
+                      <svg viewBox="0 0 24 24" width="20" height="20" className="text-white mr-3">
                         <path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.86-3.08.38-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.12 2.28-.84 3.76-.71 1.45.12 2.49.61 3.18 1.5-2.5 1.65-2.08 4.75-.08 6.19-.8 1.83-2.18 3.87-3.94 5.19zm-4.12-14.45c.1-1.95 1.63-3.57 3.36-3.83.31 2.08-.59 4.19-3.36 3.83z"/>
                       </svg>
                       <div className="text-left">
@@ -429,9 +532,9 @@ export default function Hero() {
                     href="https://play.google.com/store/apps/details?id=com.daimonion.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative overflow-hidden rounded-xl bg-black/50 border border-gray-800 hover:border-red-900 transition-all duration-300"
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="group relative overflow-hidden rounded-xl bg-black/30 transition-all duration-300 transform scale-80"
+                    whileHover={{ scale: 0.85, y: -2 }}
+                    whileTap={{ scale: 0.78 }}
                   >
                     <motion.div 
                       className="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
@@ -439,7 +542,7 @@ export default function Hero() {
                     
                     {/* Google Play Button */}
                     <div className="flex items-center px-5 py-3">
-                      <svg viewBox="0 0 24 24" width="24" height="24" className="text-white mr-3">
+                      <svg viewBox="0 0 24 24" width="20" height="20" className="text-white mr-3">
                         <path fill="currentColor" d="M3.609 1.814L13.792 12 3.609 22.186c-.181.181-.29.423-.29.683v.063c0 .26.109.499.29.683.181.181.427.29.687.29.26 0 .506-.109.687-.29l10.875-10.875c.181-.181.29-.423.29-.683s-.109-.503-.29-.683L4.983.841C4.802.66 4.556.551 4.296.551c-.26 0-.506.109-.687.29-.181.181-.29.423-.29.683v.063c0 .26.109.502.29.683z"/>
                       </svg>
                       <div className="text-left">
@@ -448,36 +551,6 @@ export default function Hero() {
                       </div>
                     </div>
                   </motion.a>
-                </motion.div>
-                
-                {/* Stats row */}
-                <motion.div 
-                  className="flex justify-center gap-16 mt-16"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.9 }}
-                >
-                  <motion.div 
-                    className="flex flex-col items-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <span className="text-4xl font-bold text-white">5.000+</span>
-                    <span className="text-sm text-gray-400 font-medium mt-1">{content.statsTransformed}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex flex-col items-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <span className="text-4xl font-bold text-white">4,8★</span>
-                    <span className="text-sm text-gray-400 font-medium mt-1">App Store Rating</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex flex-col items-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <span className="text-4xl font-bold text-white">100%</span>
-                    <span className="text-sm text-gray-400 font-medium mt-1">{content.statsKompromisslos}</span>
-                  </motion.div>
                 </motion.div>
               </div>
             </motion.div>

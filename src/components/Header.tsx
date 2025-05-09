@@ -39,6 +39,28 @@ export default function Header() {
   // Get content based on language
   const content = translations[locale] || translations.de;
 
+  // Handle app store redirect based on device
+  const handleAppStoreRedirect = () => {
+    // Check if window is defined (for SSR)
+    if (typeof window !== 'undefined') {
+      const userAgent = navigator.userAgent.toLowerCase();
+      
+      // Check for iOS devices
+      if (/iphone|ipad|ipod/.test(userAgent)) {
+        window.location.href = 'https://apps.apple.com/de/app/daimonion/id6740612619';
+      }
+      // Check for Android devices
+      else if (/android/.test(userAgent)) {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.daimonion.app';
+      }
+      // Fallback for other devices
+      else {
+        // Stay on the landing page or use a fallback URL
+        // window.location.href = '/download';
+      }
+    }
+  };
+
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -215,12 +237,14 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Call to Action */}
+          {/* Call to Action - Restored with dynamic redirect */}
           <motion.a
-            href="https://apps.apple.com/de/app/daimonion/id6740612619"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-white/10 bg-white/5 hover:bg-white/10 rounded-md px-4 py-2 text-sm text-white transition-colors duration-300"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleAppStoreRedirect();
+            }}
+            className="border border-white/10 bg-white/5 hover:bg-white/10 rounded-md px-4 py-2 text-sm text-white transition-colors duration-300 relative z-20"
             whileHover={{ 
               y: -1, 
               boxShadow: "0 0 8px rgba(255, 255, 255, 0.1)",
