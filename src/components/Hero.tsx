@@ -18,11 +18,13 @@ interface LocalizedContent {
   downloadAt: string;
   statsTransformed: string;
   statsKompromisslos: string;
+  freeDownload: string;
+  freeTrial: string;
 }
 
 const translations: Record<string, LocalizedContent> = {
   de: {
-    startTransformation: "Jetzt downloaden",
+    startTransformation: "App jetzt laden",
     headline: "Diese App zerstört deine Ausreden – in 7 Tagen.",
     tagline: "Die KI, die dich anschreit, bis du lieferst.",
     transformText: "Kein Bullshit.",
@@ -34,9 +36,11 @@ const translations: Record<string, LocalizedContent> = {
     downloadAt: "Laden im",
     statsTransformed: "Veränderte Leben",
     statsKompromisslos: "Brutal ehrlich",
+    freeDownload: "Kostenlos im App Store oder Google Play",
+    freeTrial: "Nur heute: 7-Tage-Free-Trial sichern",
   },
   en: {
-    startTransformation: "Download Now",
+    startTransformation: "Get the app now",
     headline: "This app destroys your excuses – in 7 days.",
     tagline: "The AI that screams at you until you deliver.",
     transformText: "No bullshit.",
@@ -45,9 +49,11 @@ const translations: Record<string, LocalizedContent> = {
     appStore: "App Store",
     downloadIn: "Download on",
     googlePlay: "Google Play",
-    downloadAt: "GET IT NOW ON",
+    downloadAt: "GET IT ON",
     statsTransformed: "Lives changed",
     statsKompromisslos: "Brutally honest",
+    freeDownload: "Free on App Store or Google Play",
+    freeTrial: "Today only: Get a 7-day free trial",
   }
 };
 
@@ -59,6 +65,7 @@ export default function Hero() {
   const [audioEnabled, setAudioEnabled] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
   const { locale, setLocale } = useLanguage();
   
   // Texte basierend auf Sprache
@@ -162,6 +169,21 @@ export default function Hero() {
       }
     }, 1500);
   };
+  
+  // Add scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > window.innerHeight * 0.5) {
+        setShowFloatingButton(true);
+      } else {
+        setShowFloatingButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   return (
     <section 
@@ -370,22 +392,22 @@ export default function Hero() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.3, duration: 0.8 }}
                 >
-                  <span className="block">Die KI, die dich anschreit,</span>
-                  <span className="block">bis du lieferst.</span>
+                  <span className="block">{content.tagline}</span>
                 </motion.p>
                 
                 {/* Interactive button */}
                 <motion.button
-                  className="group relative overflow-hidden bg-gradient-to-b from-red-600 to-red-900 hover:from-red-700 hover:to-red-950 text-white py-6 rounded-md uppercase tracking-wider font-bold w-[90%] max-w-[500px]"
+                  className="group relative overflow-hidden bg-gradient-to-b from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white py-6 rounded-xl uppercase tracking-wider font-bold w-[90%] max-w-[500px]"
                   style={{
                     minHeight: "48px",
-                    fontSize: "clamp(16px, 4.2vw, 20px)"
+                    fontSize: "clamp(16px, 4.2vw, 20px)",
+                    boxShadow: "0 8px 20px rgba(220, 38, 38, 0.3)"
                   }}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ 
                     y: 0, 
                     opacity: 1,
-                    boxShadow: ["0 0 0 0 rgba(239, 68, 68, 0)", "0 0 0 8px rgba(239, 68, 68, 0.3)", "0 0 0 0 rgba(239, 68, 68, 0)"]
+                    boxShadow: ["0 4px 12px rgba(220, 38, 38, 0.2)", "0 8px 24px rgba(220, 38, 38, 0.4)", "0 4px 12px rgba(220, 38, 38, 0.2)"]
                   }}
                   transition={{ 
                     delay: 1.6,
@@ -399,9 +421,9 @@ export default function Hero() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="relative z-10">{content.startTransformation}</span>
+                  <span className="relative z-10">{content.startTransformation} 🔥</span>
                   <motion.div 
-                    className="absolute inset-0 bg-red-600 z-0"
+                    className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 z-0 rounded-xl"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: '0%' }}
                     transition={{ duration: 0.4 }}
@@ -441,7 +463,7 @@ export default function Hero() {
                     marginBottom: "clamp(10px, 2vh, 24px)"
                   }}
                 >
-                  Kostenlos im App Store oder Google Play
+                  {content.freeDownload}
                 </motion.p>
                 
                 <div className="flex flex-col items-center" style={{ 
@@ -454,7 +476,7 @@ export default function Hero() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.8 }}
                   >
-                    Nur heute: 7-Tage-Free-Trial sichern
+                    {content.freeTrial}
                   </motion.p>
                   
                   {/* Rating line with stars and user counts */}
@@ -493,7 +515,7 @@ export default function Hero() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.95 }}
                   >
-                    100% Brutal ehrlich
+                    100% {content.statsKompromisslos}
                   </motion.div>
                 </div>
                 
@@ -585,6 +607,28 @@ export default function Hero() {
               )}
             </AnimatePresence>
           </>
+        )}
+      </AnimatePresence>
+      
+      {/* Floating "Jetzt laden" button */}
+      <AnimatePresence>
+        {showFloatingButton && isRevealed && (
+          <motion.button
+            className="fixed bottom-6 right-6 z-50 bg-gradient-to-b from-red-500 to-red-700 text-white font-bold py-3 px-5 rounded-xl shadow-lg"
+            style={{
+              boxShadow: "0 8px 20px rgba(220, 38, 38, 0.3)",
+              fontSize: "16px"
+            }}
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            onClick={handleAppStoreRedirect}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {content.startTransformation} 🔥
+          </motion.button>
         )}
       </AnimatePresence>
     </section>
