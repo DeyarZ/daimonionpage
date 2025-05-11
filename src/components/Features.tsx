@@ -15,8 +15,8 @@ export default function Features() {
   
   const features = [
     {
-      title: "Absolut Kompromisslos",
-      description: "Daimonion lässt dich nicht mit schwachen Ausreden davonkommen. Wenn du versagst, wird es dich damit konfrontieren.",
+      title: "Absolutely Uncompromising",
+      description: "Daimonion doesn't let you get away with weak excuses. When you fail, it will confront you with it.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -24,8 +24,8 @@ export default function Features() {
       )
     },
     {
-      title: "Gnadenlose Analyse",
-      description: "KI scannt dein Verhalten, identifiziert Muster deines Versagens und seziert deine Schwächen mit chirurgischer Präzision.",
+      title: "Merciless Analysis",
+      description: "AI scans your behavior, identifies patterns of your failure, and dissects your weaknesses with surgical precision.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -33,8 +33,8 @@ export default function Features() {
       )
     },
     {
-      title: "Psychologische Kriegsführung",
-      description: "Erhalte maßgeschneiderte Interventionen, die genau auf deine psychologischen Schwachstellen abzielen. Daimonion kennt dich besser als du selbst.",
+      title: "Psychological Warfare",
+      description: "Receive tailored interventions that target your psychological vulnerabilities. Daimonion knows you better than you know yourself.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -42,8 +42,8 @@ export default function Features() {
       )
     },
     {
-      title: "Niemals Kapitulieren",
-      description: "Während andere Apps dich mit süßen Benachrichtigungen umwerben, wird Daimonion niemals aufgeben, bis du deine Ziele erreichst. Kein Raum für Mittelmäßigkeit.",
+      title: "Never Surrender",
+      description: "While other apps court you with sweet notifications, Daimonion will never give up until you achieve your goals. No room for mediocrity.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -51,8 +51,8 @@ export default function Features() {
       )
     },
     {
-      title: "Emotionale Manipulation",
-      description: "Fortschrittlich kalibrierte Techniken, die deine emotionalen Auslöser erkennen und nutzen, um maximale Leistung zu erzwingen. Deine Gefühle sind nur ein Werkzeug.",
+      title: "Emotional Manipulation",
+      description: "Advanced calibrated techniques that recognize and use your emotional triggers to force maximum performance. Your feelings are just a tool.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -60,8 +60,8 @@ export default function Features() {
       )
     },
     {
-      title: "Totale Überwachung",
-      description: "Jede Sekunde, jede Entscheidung wird protokolliert und analysiert. Dein Daimonion sieht alles und vergisst nichts - vor allem nicht deine Misserfolge.",
+      title: "Total Surveillance",
+      description: "Every second, every decision is logged and analyzed. Your Daimonion sees everything and forgets nothing - especially not your failures.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -137,14 +137,14 @@ export default function Features() {
           transition={{ duration: 0.7 }}
         >
           <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-red-600 uppercase bg-red-900/20 rounded-full">
-            WO ANDERE AUFHÖREN, FANGEN WIR AN
+            WHERE OTHERS STOP, WE BEGIN
           </span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Kein <span className="text-red-600">Wellness-Tool</span>.
-            <br />Eine <span className="text-red-600">Kampfmaschine</span> für deine Ziele.
+            Not a <span className="text-red-600">Wellness Tool</span>.
+            <br />A <span className="text-red-600">War Machine</span> for your goals.
           </h2>
           <p className="text-lg text-gray-400">
-            Daimonion nutzt fortschrittliche Psychologie und künstliche Intelligenz, um dich zu einer höheren Version deiner selbst zu zwingen - koste es, was es wolle.
+            Daimonion uses advanced psychology and artificial intelligence to force you into a higher version of yourself - at any cost.
           </p>
         </motion.div>
         
@@ -222,10 +222,10 @@ export default function Features() {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex-1">
               <h3 className="text-2xl font-bold mb-2">
-                Bereit, dich deinen <span className="text-red-600">Dämonen</span> zu stellen?
+                Ready to face your <span className="text-red-600">demons</span>?
               </h3>
               <p className="text-gray-400">
-                Nicht jeder ist stark genug für Daimonion. Bist du es?
+                Not everyone is strong enough for Daimonion. Are you?
               </p>
             </div>
             <motion.a
@@ -234,7 +234,7 @@ export default function Features() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span>Download Starten</span>
+              <span>Start Download</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>

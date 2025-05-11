@@ -1,13 +1,14 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type LanguageContextType = {
   locale: string;
   setLocale: (locale: string) => void;
 };
 
+// Force English only
 const LanguageContext = createContext<LanguageContextType>({
-  locale: 'de',
+  locale: 'en',
   setLocale: () => {},
 });
 
@@ -18,20 +19,12 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [locale, setLocaleState] = useState('de');
+  // Always use English
+  const [locale] = useState('en');
 
-  useEffect(() => {
-    const userLanguage = navigator.language.split('-')[0];
-    if (userLanguage === 'en' || userLanguage === 'de') {
-      setLocaleState(userLanguage);
-    }
-  }, []);
-
-  const setLocale = (newLocale: string) => {
-    setLocaleState(newLocale);
-    // Dispatch custom event to notify all components
-    const event = new CustomEvent('languageChange', { detail: { locale: newLocale } });
-    window.dispatchEvent(event);
+  // No-op function that keeps the locale as English
+  const setLocale = () => {
+    // Do nothing - English is forced
   };
 
   return (

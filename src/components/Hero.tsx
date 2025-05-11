@@ -68,8 +68,8 @@ export default function Hero() {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const { locale, setLocale } = useLanguage();
   
-  // Texte basierend auf Sprache
-  const content = translations[locale] || translations.de;
+  // Force English content only regardless of context
+  const content = translations.en;
   
   // Handle app store redirect based on device
   const handleAppStoreRedirect = (e: React.MouseEvent) => {
@@ -502,7 +502,7 @@ export default function Hero() {
                     </div>
                     <span className="text-white">4,8</span>
                     <span className="text-gray-400 mx-1">·</span>
-                    <span className="text-white">5.000+ Nutzer</span>
+                    <span className="text-white">5.000+ warriors</span>
                   </motion.div>
                   
                   {/* 100% Brutal ehrlich pill */}

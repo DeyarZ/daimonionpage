@@ -42,35 +42,35 @@ const translations: Record<string, LocalizedContent> = {
   }
 };
 
-// Warrior testimonials - preserved in German
+// Warrior testimonials - translated to English
 const testimonials = [
   {
-    quote: "Ich war ein Dopamin-Junkie. TikTok, Insta, Porn – die volle Packung. Daimonion hat mich nicht getröstet. Er hat mich gefickt. Und genau das hat mich gerettet.",
-    name: "Anonymer Nutzer",
+    quote: "I was a dopamine junkie. TikTok, Instagram, Porn - the full package. Daimonion didn't comfort me. It messed me up. And that's exactly what saved me.",
+    name: "Anonymous User",
     initials: "A",
     featured: true,
   },
   {
-    quote: "Ich hab mir diese App runtergeladen, um mich zu motivieren. Stattdessen hat sie mir die Wahrheit gesagt. Und mich damit stärker gemacht.",
+    quote: "I downloaded this app to motivate myself. Instead, it told me the truth. And made me stronger because of it.",
     name: "Tim S.",
     initials: "TS",
     featured: false,
   },
   {
-    quote: "Daimonion hat mich erwischt, als ich mich selbst verloren hatte. Nicht mit netten Worten. Sondern mit Realität.",
+    quote: "Daimonion caught me when I had lost myself. Not with nice words. But with reality.",
     name: "Mariam R.",
     initials: "MR",
     featured: false,
   },
   {
-    quote: "Nach einem Monat mit Daimonion sind Instagram-Motivationssprüche wie Kindergeburtstag. Diese App fordert dich heraus, bis du lieferst.",
+    quote: "After a month with Daimonion, Instagram motivational quotes feel like child's play. This app challenges you until you deliver.",
     name: "Daniel K.",
     initials: "DK",
     featured: false,
   },
   {
-    quote: "Ich wollte Trost. Ich bekam Feuer. Jetzt habe ich die Disziplin, die ich immer wollte. Danke für den Tritt in den Arsch.",
-    name: "Anonymer Nutzer",
+    quote: "I wanted comfort. I got fire. Now I have the discipline I always wanted. Thanks for the kick in the ass.",
+    name: "Anonymous User",
     initials: "S",
     featured: false,
   },
@@ -403,8 +403,8 @@ export default function Testimonials() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { locale } = useLanguage();
   
-  // Inhalte basierend auf Sprache
-  const content = translations[locale] || translations.de;
+  // Force English only
+  const content = translations.en;
   
   // For background reveal effect
   const [scrollY, setScrollY] = useState(0);
@@ -540,7 +540,7 @@ export default function Testimonials() {
           <FuturisticRings />
           
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">
-            <GlitchText text={content.testimonialsTitle} /> aus der <GlitchText text={content.voicesFromDarkness} />
+            <GlitchText text={content.testimonialsTitle} /> from the <GlitchText text={content.voicesFromDarkness} />
           </h2>
           <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
             {content.realPeopleDescription}

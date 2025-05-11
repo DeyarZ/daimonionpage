@@ -78,8 +78,8 @@ const archetypes = [
   {
     id: "builder",
     emoji: "🧔",
-    title: "Der Builder",
-    description: "Du arbeitest an deinem Business, Sidehustle oder an dir selbst. Struktur, Fokus und radikale Ehrlichkeit sind keine Option – sondern Pflicht.",
+    title: "The Builder",
+    description: "You're working on your business, side hustle, or yourself. Structure, focus, and radical honesty aren't optional – they're mandatory.",
     color: "from-red-700/90 to-red-900/90",
     textGlow: "text-red-500",
     accentGlow: "red-500",
@@ -92,8 +92,8 @@ const archetypes = [
   {
     id: "thinker",
     emoji: "🧠",
-    title: "Der Denker im Chaos",
-    description: "Du hast große Ideen, aber dein Alltag ist ein Schlachtfeld aus Dopamin. Daimonion bringt dich raus aus der Verzettelung – rein in die Umsetzung.",
+    title: "The Thinker in Chaos",
+    description: "You have great ideas, but your daily life is a battlefield of dopamine. Daimonion takes you out of distraction – and into execution.",
     color: "from-blue-700/90 to-blue-900/90",
     textGlow: "text-blue-400",
     accentGlow: "blue-500",
@@ -106,8 +106,8 @@ const archetypes = [
   {
     id: "seeker",
     emoji: "🏋️",
-    title: "Der Disziplin-Sucher",
-    description: "Du willst fitter, klarer und mental stärker werden – aber kämpfst mit Ablenkung. Du brauchst eine Stimme, die dich accountable hält, wenn du schwach wirst.",
+    title: "The Discipline Seeker",
+    description: "You want to be fitter, clearer, and mentally stronger – but struggle with distractions. You need a voice that holds you accountable when you get weak.",
     color: "from-purple-700/90 to-purple-900/90",
     textGlow: "text-purple-400",
     accentGlow: "purple-500",
@@ -120,8 +120,8 @@ const archetypes = [
   {
     id: "warrior",
     emoji: "🥷",
-    title: "Der Unsichtbare Krieger",
-    description: "Du sagst nichts – aber du weißt, dass da mehr in dir steckt. Du brauchst keine Likes. Du brauchst Resultate.",
+    title: "The Invisible Warrior",
+    description: "You don't say anything – but you know there's more within you. You don't need likes. You need results.",
     color: "from-gray-800/90 to-black/90",
     textGlow: "text-gray-300",
     accentGlow: "gray-400",
@@ -230,7 +230,7 @@ export default function ForWhom() {
           >
             {/* Main title with more dramatic shadow and effect */}
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white inline-block relative tracking-tight">
-              <span className="relative z-10">Für wen ist Daimonion gemacht?</span>
+              <span className="relative z-10">Who is Daimonion made for?</span>
               <span className="absolute -left-1 top-1 w-full h-full blur-lg opacity-80 bg-clip-text text-transparent bg-gradient-to-b from-red-600 to-red-900 z-0"></span>
             </h2>
             
@@ -249,9 +249,9 @@ export default function ForWhom() {
             animate={inView ? "visible" : "hidden"}
             className="text-xl md:text-2xl font-bold text-center max-w-3xl mx-auto mb-24 text-gray-200 drop-shadow-lg"
           >
-            Nicht für Opfer. Nicht für Ausredenkünstler. 
+            Not for victims. Not for excuse artists. 
             <span className="block text-red-500">
-              Sondern für Krieger, die mehr vom Leben wollen.
+              But for warriors who want more from life.
             </span>
           </motion.p>
         </div>

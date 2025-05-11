@@ -31,17 +31,17 @@ interface LocalizedContent {
 
 const translations: Record<string, LocalizedContent> = {
   de: {
-    visualizeWeapon: "VISUALISIERE DEINE WAFFE",
-    thisIsYourDaimonion: "Das ist dein Daimonion.",
-    description: "Brutal. Minimalistisch. Konstruiert für",
-    focusAndAccountability: "vernichtenden Fokus & kompromisslose Verantwortlichkeit",
-    noBullshit: "Kein Bullshit. Nur Resultate.",
+    visualizeWeapon: "VISUALIZE THE WEAPON",
+    thisIsYourDaimonion: "This Is Your Daimonion.",
+    description: "Brutal. Minimalist. Engineered for",
+    focusAndAccountability: "Devastating Focus & Uncompromising Accountability",
+    noBullshit: "No Bullshit. Only Results.",
     screens: [
-      { src: "/images/Flow Timer Screenshot.png", alt: "Flow Timer", title: "Flow Timer", description: "Dominiere deine Produktivitätszonen" },
-      { src: "/images/Chatbot Screenshot.png", alt: "Chatbot", title: "KI-Coach", description: "Dein persönlicher Dämon" },
-      { src: "/images/Dashboard Screenshot.png", alt: "Dashboard", title: "Dashboard", description: "Kommandozentrale deiner Macht" },
-      { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Gewohnheiten", description: "Erschaffe eiserne Disziplin" },
-      { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Sprenge deine Grenzen" },
+      { src: "/images/Flow Timer Screenshot.png", alt: "Flow Timer", title: "Flow Timer", description: "Dominate your productive zones" },
+      { src: "/images/Chatbot Screenshot.png", alt: "Chatbot", title: "AI Coach", description: "Your personal demon" },
+      { src: "/images/Dashboard Screenshot.png", alt: "Dashboard", title: "Dashboard", description: "Command center of power" },
+      { src: "/images/Habit Tracker Screenshot.png", alt: "Habit Tracker", title: "Habits", description: "Engineer your discipline" },
+      { src: "/images/Traininsplan Screenshot.png", alt: "Trainingsplan", title: "Training", description: "Forge your limits" },
     ]
   },
   en: {
@@ -77,8 +77,8 @@ export default function ScreensCarousel() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { locale } = useLanguage(); // Verwende den globalen Language Context
   
-  // Inhalte basierend auf Sprache
-  const content = translations[locale] || translations.de;
+  // Force English only
+  const content = translations.en;
   
   // Parallax effect for background with increased intensity
   const { scrollYProgress } = useScroll({

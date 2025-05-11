@@ -11,8 +11,8 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Daimonion - Der KI-Coach für deine Disziplin | Keine Ausreden. Nur Fortschritt.",
-  description: "Daimonion ist kein normaler Coach. Er ist dein Dämon. Der erste KI-Coach, der dich schleift - nicht streichelt. Für Fokus, Produktivität und Disziplin.",
+  title: "Daimonion - The AI Coach for Your Discipline | No Excuses. Only Progress.",
+  description: "Daimonion is not a normal coach. It's your demon. The first AI coach that trains you hard - not coddles you. For focus, productivity, and discipline.",
   icons: {
     icon: "/images/daimonionlogoschwarz.png",
     apple: "/images/daimonionlogoschwarz.png",
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="en">
       <body className={`${inter.variable} ${roboto_mono.variable} font-sans bg-black text-white antialiased selection:bg-red-900 selection:text-white`}>
         <LanguageProvider>
           {/* Film grain overlay for cinematic effect */}

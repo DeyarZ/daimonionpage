@@ -37,7 +37,7 @@ export default function Header() {
   const { locale, setLocale } = useLanguage();
   
   // Get content based on language
-  const content = translations[locale] || translations.de;
+  const content = translations.en;
 
   // Handle app store redirect based on device
   const handleAppStoreRedirect = () => {
@@ -221,8 +221,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Language switcher */}
-          <div className="hidden md:flex space-x-2 mr-4">
+          {/* Language switcher - HIDDEN */}
+          <div className="hidden">
             <button 
               onClick={() => setLocale("de")} 
               className={`w-8 h-8 rounded-full flex items-center justify-center ${locale === "de" ? 'bg-red-900/60' : 'bg-black/40'} backdrop-blur-sm hover:bg-red-900/40 transition-colors text-xs`}

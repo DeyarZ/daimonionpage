@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function Datenschutz() {
+export default function PrivacyPolicy() {
   return (
     <main className="min-h-screen pt-32 pb-16 container mx-auto px-6">
       <motion.div

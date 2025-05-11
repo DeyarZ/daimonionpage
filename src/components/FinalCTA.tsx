@@ -108,8 +108,8 @@ export default function FinalCTA() {
                 ease: "easeInOut"
               }}
             >
-              <span className="block mb-2">Entweder du kontrollierst deinen Tag.</span>
-              <span className="block">Oder der Tag kontrolliert dich.</span>
+              <span className="block mb-2">Either you control your day.</span>
+              <span className="block">Or your day controls you.</span>
               <motion.div 
                 className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-red-700 to-transparent"
                 animate={{
@@ -130,9 +130,9 @@ export default function FinalCTA() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <span className="text-white">Hol dir Daimonion.</span>{" "}
+              <span className="text-white">Get Daimonion.</span>{" "}
               <span className="font-mono bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-800 relative">
-                Werde gefährlich diszipliniert.
+                Become dangerously disciplined.
                 <motion.span 
                   className="absolute -bottom-2 left-0 w-full h-[2px] bg-red-700"
                   animate={{
@@ -188,7 +188,7 @@ export default function FinalCTA() {
               />
               <Image
                 src="/images/App Store.png"
-                alt="Download im App Store"
+                alt="Download on App Store"
                 width={220}
                 height={70}
                 priority
@@ -239,7 +239,7 @@ export default function FinalCTA() {
               />
               <Image
                 src="/images/Google Play.png"
-                alt="Download bei Google Play"
+                alt="Download on Google Play"
                 width={220}
                 height={70}
                 priority
@@ -270,7 +270,7 @@ export default function FinalCTA() {
             animate={controls}
             transition={{ delay: 0.6 }}
           >
-            <span className="text-red-500 font-bold">KOSTENLOS.</span> KEINE WERBUNG. NUR WAHRHEIT.
+            <span className="text-red-500 font-bold">FREE.</span> NO ADS. ONLY TRUTH.
           </motion.p>
 
           {/* Footer with enhanced design */}
@@ -284,26 +284,20 @@ export default function FinalCTA() {
 
             {/* Footer links with hover effects */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-10 text-sm text-gray-500">
-              <motion.a 
-                href="/impressum" 
-                className="relative hover:text-white transition-colors duration-300 group"
-                whileHover={{ x: 2 }}
+              <motion.a
+                href="/legal-notice"
+                className="text-neutral-300 hover:text-white text-sm px-4 py-1 transition-colors"
               >
-                <span>Impressum</span>
-                <motion.span 
-                  className="absolute -bottom-1 left-0 w-0 h-px bg-red-700 group-hover:w-full transition-all duration-300" 
-                />
+                Legal Notice
               </motion.a>
               
-              <motion.a 
-                href="/datenschutz" 
-                className="relative hover:text-white transition-colors duration-300 group"
-                whileHover={{ x: 2 }}
+              <span className="text-neutral-500 mx-2">•</span>
+              
+              <motion.a
+                href="/privacy-policy"
+                className="text-neutral-300 hover:text-white text-sm px-4 py-1 transition-colors"
               >
-                <span>Datenschutz</span>
-                <motion.span 
-                  className="absolute -bottom-1 left-0 w-0 h-px bg-red-700 group-hover:w-full transition-all duration-300" 
-                />
+                Privacy Policy
               </motion.a>
               
               <div className="flex items-center gap-2">
@@ -321,7 +315,7 @@ export default function FinalCTA() {
                 </motion.span>
               </div>
               
-              <p className="text-xs mt-4 md:mt-0 font-medium">Built with <span className="text-red-600">🔥</span> by zwei wilde Motherfucker aus München.</p>
+              <p className="text-xs mt-4 md:mt-0 font-medium">Built with <span className="text-red-600">🔥</span> by two wild motherfuckers from Munich.</p>
             </div>
           </motion.div>
         </div>
